@@ -76,7 +76,7 @@ jobs:
           git push -f origin main
 ```
 
-The sample sequence is like this. Sample web page is also in [./docs/index.html](./docs/index.html).
+The sample sequence is like this. 
 
 ```mermaid
 sequenceDiagram
@@ -101,6 +101,11 @@ sequenceDiagram
     W->>W: End polling
     deactivate W
 ```
+
+Sample web page is also in [./docs/index.html](./docs/index.html).
+
+![image](https://github.com/user-attachments/assets/62b5b518-19ab-4c10-9934-3f14d6ebc6df)
+
 
 ## References
 
