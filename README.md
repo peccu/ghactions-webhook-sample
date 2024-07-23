@@ -39,6 +39,35 @@ jobs:
         run: echo $MESSAGE
 ```
 
+## Response handling with GitHub pages
+
+The above method can not return results.
+I use the result file in this repo and the job write the result and commit, then GitHub Action deploys it to GitHub Pages.
+
+```mermaid
+sequenceDiagram
+    participant W as Web App
+    participant GA as GitHub Actions
+    participant GR as Git Repository
+    participant GP as GitHub Pages
+
+    W->>+GA: Dispatch job
+    GA-->>-W: Job dispatch success response
+    
+    activate W
+    W->>W: Start polling GitHub Pages
+    
+    activate GA
+    GA->>GA: Start job and complete tasks
+    GA->>GR: Commit results
+    GA->>GP: Deploy
+    deactivate GA
+    
+    W->>GP: Read results
+    W->>W: End polling
+    deactivate W
+```
+
 ## References
 
 - [Events that trigger workflows - GitHub Docs](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
