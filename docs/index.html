@@ -150,7 +150,8 @@
                         if (response.ok) {
                             const data = await response.json();
                             setResponseData(data);
-                            if (responseData.message == message) {
+                            if (data.message == message) {
+                                console.log('Stopping timer');
                                 clearInterval(pollInterval);
                             }
                             console.log('Last updated time', new Date(data.date));
