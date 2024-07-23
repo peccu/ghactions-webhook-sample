@@ -158,21 +158,6 @@
                 setTimeout(() => clearInterval(pollInterval), 60000);
             };
 
-            const renderResponseData = () => {
-                if (!responseData || !responseData.workflow_runs || responseData.workflow_runs.length === 0) {
-                    return "No workflow runs available.";
-                }
-                const latestRun = responseData.workflow_runs[0];
-                return JSON.stringify({
-                    id: latestRun.id,
-                    name: latestRun.name,
-                    status: latestRun.status,
-                    conclusion: latestRun.conclusion,
-                    created_at: latestRun.created_at,
-                    updated_at: latestRun.updated_at
-                }, null, 2);
-            };
-
             return (
                 <div className="card">
                     <div className="card-header">
@@ -207,7 +192,7 @@
                         <div className="response">
                             <h3>Latest Run:</h3>
                             <pre>
-                                {renderResponseData()}
+                                {JSON.stringify(responseData, null, 2)}
                             </pre>
                         </div>
                     )}
