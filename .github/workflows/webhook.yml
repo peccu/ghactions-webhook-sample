@@ -1,6 +1,11 @@
+name: Dispatch from webhook
+
 on:
   repository_dispatch:
     types: [test_result]
+
+permissions:
+  contents: write
 
 jobs:
   run_if_failure:
