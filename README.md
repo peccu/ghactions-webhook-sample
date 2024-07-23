@@ -31,7 +31,6 @@ on:
 
 jobs:
   run_if_failure:
-    if: ${{ !github.event.client_payload.passed }}
     runs-on: ubuntu-latest
     steps:
       - env:
@@ -47,7 +46,14 @@ I use the result file in this repo and the job write the result and commit, then
 This sample deploys ./docs directory. (configured in repository settings)
 
 ```yaml
+# need this permission to push
+permissions:
+  contents: write
 
+jobs:
+  run_if_failure:
+    ...
+    steps:
       - id: update_response
         name: Update response
         env:
