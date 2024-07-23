@@ -7,6 +7,27 @@ jobs:
     if: ${{ !github.event.client_payload.passed }}
     runs-on: ubuntu-latest
     steps:
-      - env:
+      - uses: actions/checkout@v2
+      - name: Echo message
+        env:
           MESSAGE: ${{ github.event.client_payload.message }}
         run: echo $MESSAGE
+      - id: update_response
+        name: Update response
+        env:
+          MESSAGE: ${{ github.event.client_payload.message }}
+        run: |
+          type jq awk sed
+          [ ! -d docs ] && mkdir docs
+          echo '{"message": "'$MESSAGE'", "date": '$(date "+%s%3N")'}' > ./docs/response.json
+      # from https://github.com/orgs/community/discussions/25234#discussioncomment-4026272
+      - id: commit_files
+        name: Commit files  
+        run:
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          if ! git diff --exit-code; then
+              git add docs
+              git commit -am "GH Actions Workflow has dispatched at $(date)"
+              git push -f origin main
+          fi
