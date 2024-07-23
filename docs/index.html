@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
@@ -24,6 +24,8 @@
             padding: 20px;
             width: 100%;
             max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
         .card-header {
             margin-bottom: 20px;
@@ -69,7 +71,10 @@
             background-color: #f5f5f5;
             padding: 10px;
             border-radius: 4px;
-            overflow-x: auto;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
     </style>
 </head>
@@ -153,6 +158,21 @@
                 setTimeout(() => clearInterval(pollInterval), 60000);
             };
 
+            const renderResponseData = () => {
+                if (!responseData || !responseData.workflow_runs || responseData.workflow_runs.length === 0) {
+                    return "No workflow runs available.";
+                }
+                const latestRun = responseData.workflow_runs[0];
+                return JSON.stringify({
+                    id: latestRun.id,
+                    name: latestRun.name,
+                    status: latestRun.status,
+                    conclusion: latestRun.conclusion,
+                    created_at: latestRun.created_at,
+                    updated_at: latestRun.updated_at
+                }, null, 2);
+            };
+
             return (
                 <div className="card">
                     <div className="card-header">
@@ -187,7 +207,7 @@
                         <div className="response">
                             <h3>Latest Run:</h3>
                             <pre>
-                                {JSON.stringify(responseData.workflow_runs[0], null, 2)}
+                                {renderResponseData()}
                             </pre>
                         </div>
                     )}
