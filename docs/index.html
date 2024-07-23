@@ -136,6 +136,7 @@
             const startPolling = () => {
                 const pollInterval = setInterval(async () => {
                     try {
+                        setResponseData({workflow_runs:[]});
                         const response = await fetch('https://api.github.com/repos/peccu/ghactions-webhook-sample/actions/runs', {
                             headers: {
                                 'Authorization': `Bearer ${token}`,
@@ -192,7 +193,7 @@
                         <div className="response">
                             <h3>Latest Run:</h3>
                             <pre>
-                                {JSON.stringify(responseData, null, 2)}
+                                {JSON.stringify(responseData.workflow_runs[0], null, 2)}
                             </pre>
                         </div>
                     )}
