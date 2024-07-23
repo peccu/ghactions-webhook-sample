@@ -44,6 +44,34 @@ jobs:
 The above method can not return results.
 I use the result file in this repo and the job write the result and commit, then GitHub Action deploys it to GitHub Pages.
 
+This sample deploys ./docs directory. (configured in repository settings)
+
+```yaml
+
+      - id: update_response
+        name: Update response
+        env:
+          MESSAGE: ${{ github.event.client_payload.message }}
+        run: |
+          # some other task here
+          [ ! -d docs ] && mkdir docs
+          # output results in docs directory which will be deployed to GitHub Pages
+          echo '{"message": "'$MESSAGE'", "date": '$(date "+%s%3N")'}' > ./docs/response.json
+      # git committing sample from https://github.com/orgs/community/discussions/25234#discussioncomment-4026272
+      - id: commit_files
+        name: Commit files  
+        run: |
+          git status
+          git diff
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add docs
+          git commit -am "GH Actions Workflow has dispatched at $(date)"
+          git push -f origin main
+```
+
+The sample sequence is like this. Sample web page is also in [./docs/index.html](./docs/index.html).
+
 ```mermaid
 sequenceDiagram
     participant W as Web App
