@@ -23,7 +23,7 @@ You can create the token from here. [Fine-grained Personal Access Tokens](https:
 
 The event_type need to be same as types in workflow definition.
 
-(From [`.github/workflows/webhook.yml`](./github/workflows/webhook.yml)
+(From [`.github/workflows/webhook.yml`](./.github/workflows/webhook.yml)
 ```yaml
 on:
   repository_dispatch:
