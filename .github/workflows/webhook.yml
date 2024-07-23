@@ -24,10 +24,10 @@ jobs:
       - id: commit_files
         name: Commit files  
         run: |
+          git status
+          git diff
           git config --local user.name actions-user
           git config --local user.email "actions@github.com"
-          if ! git diff --exit-code; then
-              git add docs
-              git commit -am "GH Actions Workflow has dispatched at $(date)"
-              git push -f origin main
-          fi
+          git add docs
+          git commit -am "GH Actions Workflow has dispatched at $(date)"
+          git push -f origin main
