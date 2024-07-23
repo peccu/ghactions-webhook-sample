@@ -23,7 +23,7 @@ jobs:
       # from https://github.com/orgs/community/discussions/25234#discussioncomment-4026272
       - id: commit_files
         name: Commit files  
-        run:
+        run: |
           git config --local user.name actions-user
           git config --local user.email "actions@github.com"
           if ! git diff --exit-code; then
