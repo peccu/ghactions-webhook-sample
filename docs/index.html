@@ -150,6 +150,10 @@
                         if (response.ok) {
                             const data = await response.json();
                             setResponseData(data);
+                            if (responseData.message == message) {
+                                clearInterval(pollInterval);
+                            }
+                            console.log('Last updated time', new Date(data.date));
                         } else {
                             console.error('Polling failed:', response.status);
                         }
@@ -170,7 +174,7 @@
                         <label htmlFor="token">GitHub Token</label>
                         <input
                             id="token"
-                            type="password"
+                            type="text"
                             value={token}
                             onChange={handleTokenChange}
                             placeholder="Enter your GitHub token"
